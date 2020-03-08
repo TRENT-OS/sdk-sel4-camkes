@@ -1,0 +1,30 @@
+[submodule "capdl"]
+	path = capdl
+	url = ../../ext/capdl.git
+[submodule "kernel"]
+	path = kernel
+	url = ../../ext/sel4.git
+[submodule "libs/musllibc"]
+	path = libs/musllibc
+	url = ../../ext/musllibc.git
+[submodule "libs/sel4_libs"]
+	path = libs/sel4_libs
+	url = ../../ext/sel4_libs.git
+[submodule "libs/sel4_project_libs"]
+	path = libs/sel4_project_libs
+	url = ../../ext/projects_libs.git
+[submodule "libs/sel4_util_libs"]
+	path = libs/sel4_util_libs
+	url = ../../ext/util_libs.git
+[submodule "libs/sel4runtime"]
+	path = libs/sel4runtime
+	url = ../../ext/sel4runtime
+[submodule "tools/camkes"]
+	path = tools/camkes
+	url = ../../ext/camkes-tool.git
+[submodule "tools/seL4"]
+	path = tools/seL4
+	url = ../../ext/sel4_tools.git
+[submodule "tools/riscv-pk"]
+	path = tools/riscv-pk
+	url = ../../ext/sel4_riscv-pk.git
