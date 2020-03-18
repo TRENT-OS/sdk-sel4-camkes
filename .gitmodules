@@ -12,7 +12,7 @@
 	url = ../../ext/sel4_libs.git
 [submodule "libs/sel4_project_libs"]
 	path = libs/sel4_project_libs
-	url = ../../ext/projects_libs.git
+	url = ../../ext/sel4proj-projects_libs.git
 [submodule "libs/sel4_util_libs"]
 	path = libs/sel4_util_libs
 	url = ../../ext/util_libs.git
