@@ -26,7 +26,7 @@ macro(use_sdk_sel4_camkes)
 
     # CMake interactive build debugging. Seems that set_break() does not work
     # unless ${SEL4_CMAKE_TOOL_DIR}/helpers/cmakerepl is renamed to have a
-    # *.camkes suffic
+    # *.camkes suffix
     include(${SEL4_CMAKE_TOOL_DIR}/helpers/debug.cmake)
 
     # platform settings
