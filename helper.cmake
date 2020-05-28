@@ -28,8 +28,8 @@ list(APPEND CMAKE_MODULE_PATH
 project(camkes C CXX ASM)
 
 # CMake interactive build debugging. Seems that set_break() does not work
-# unless ${SEL4_CMAKE_TOOL_DIR}/helpers/cmakerepl is renamed to have a *.camkes
-# suffix
+# unless ${SEL4_CMAKE_TOOL_DIR}/helpers/cmakerepl is renamed to have a
+# *.cmake suffix
 include(${SEL4_CMAKE_TOOL_DIR}/helpers/debug.cmake)
 
 # platform settings
