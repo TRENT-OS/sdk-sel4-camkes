@@ -26,13 +26,13 @@ project(camkes C CXX ASM)
 # suffix
 include(${SEL4_CMAKE_TOOL_DIR}/helpers/debug.cmake)
 
-    # platform settings
-    include(${SEL4_CMAKE_TOOL_DIR}/helpers/application_settings.cmake)
-    correct_platform_strings()
-    find_package(seL4 REQUIRED)
-    sel4_configure_platform_settings()
+# platform settings
+include(${SEL4_CMAKE_TOOL_DIR}/helpers/application_settings.cmake)
+correct_platform_strings()
+find_package(seL4 REQUIRED)
+sel4_configure_platform_settings()
 
-    # include lots of helpers from tools/seL4/cmake-tool/helpers
+# include lots of helpers from tools/seL4/cmake-tool/helpers
 include(${SEL4_CMAKE_TOOL_DIR}/common.cmake)
 
 find_package(camkes-tool REQUIRED)
