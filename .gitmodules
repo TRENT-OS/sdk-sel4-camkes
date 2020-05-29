@@ -37,3 +37,6 @@
 [submodule "libs/sel4_global_components"]
 	path = libs/sel4_global_components
 	url = ../../ext/sel4proj-global-components.git
+[submodule "libs/sel4benchsupport"]
+	path = libs/sel4benchsupport
+	url = ../../ext/sel4bench.git
