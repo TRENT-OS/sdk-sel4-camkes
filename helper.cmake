@@ -30,6 +30,7 @@ macro(setup_sel4_build_system)
         "${SEL4_CAMKES_SDK_DIR}/libs/sel4runtime"
         "${SEL4_CAMKES_SDK_DIR}/libs/sel4_util_libs"
         "${SEL4_CAMKES_SDK_DIR}/libs/sel4_libs"
+        "${SEL4_CAMKES_SDK_DIR}/libs/sel4_projects_libs"
         "${SEL4_CAMKES_SDK_DIR}/libs/projects_libs"
         "${SEL4_CAMKES_SDK_DIR}/tools/seL4/elfloader-tool"
     )

@@ -10,6 +10,9 @@
 [submodule "libs/sel4_libs"]
 	path = libs/sel4_libs
 	url = ../../ext/sel4_libs.git
+[submodule "libs/sel4_projects_libs"]
+	path = libs/sel4_projects_libs
+	url = ../../ext/sel4_projects_libs.git
 [submodule "libs/projects_libs"]
 	path = libs/projects_libs
 	url = ../../ext/sel4proj-projects_libs.git
