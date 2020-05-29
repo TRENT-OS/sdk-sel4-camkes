@@ -51,6 +51,16 @@ macro(setup_sel4_build_system)
     # include lots of helpers from tools/seL4/cmake-tool/helpers
     include("${SEL4_CMAKE_TOOL_DIR}/common.cmake")
 
+    # the sel4 build system needs this to be defined, it can't find it
+    # automatically because we use a different layout in the SDK
+    set(
+        NANOPB_SRC_ROOT_FOLDER
+        "${SEL4_CAMKES_SDK_DIR}/tools/nanopb"
+        CACHE
+        INTERNAL
+        ""
+    )
+
 endmacro()
 
 

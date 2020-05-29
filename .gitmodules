@@ -31,3 +31,6 @@
 [submodule "tools/riscv-pk"]
 	path = tools/riscv-pk
 	url = ../../ext/sel4_riscv-pk.git
+[submodule "tools/nanopb"]
+	path = tools/nanopb
+	url = ../../ext/nanopb.git
