@@ -21,7 +21,7 @@ list(APPEND CMAKE_MODULE_PATH
     ${CMAKE_CURRENT_LIST_DIR}/libs/sel4runtime
     ${CMAKE_CURRENT_LIST_DIR}/libs/sel4_util_libs
     ${CMAKE_CURRENT_LIST_DIR}/libs/sel4_libs
-    ${CMAKE_CURRENT_LIST_DIR}/libs/sel4_project_libs
+    ${CMAKE_CURRENT_LIST_DIR}/libs/projects_libs
 )
 
 # for CMake to work properly, a project must be defined
