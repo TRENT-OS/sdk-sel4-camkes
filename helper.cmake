@@ -6,40 +6,69 @@
 
 cmake_minimum_required(VERSION 3.7.2)
 
-# internal helper variable
-set(SEL4_CMAKE_TOOL_DIR "${CMAKE_CURRENT_LIST_DIR}/tools/seL4/cmake-tool")
+#-------------------------------------------------------------------------------
+# we can't use CMAKE_CURRENT_LIST_DIR in a function/macro, because that will
+# give us the dir of the file that is invoking the function/macro. Until we
+# have CmMake 3.17 which provides CMAKE_CURRENT_FUNCTION_LIST_DIR, the work
+# around is creating a global variable here with the directory and then use
+# this in the function below.
+set(SEL4_CAMKES_SDK_DIR "${CMAKE_CURRENT_LIST_DIR}")
 
-# module search paths
-list(APPEND CMAKE_MODULE_PATH
-    ${SEL4_CMAKE_TOOL_DIR}/helpers
-    ${CMAKE_CURRENT_LIST_DIR}/tools/camkes
-    ${CMAKE_CURRENT_LIST_DIR}/kernel
-    ${CMAKE_CURRENT_LIST_DIR}/tools/seL4/elfloader-tool
-    ${CMAKE_CURRENT_LIST_DIR}/capdl
-    # seL4 and CAmkES libs
-    ${CMAKE_CURRENT_LIST_DIR}/libs/musllibc
-    ${CMAKE_CURRENT_LIST_DIR}/libs/sel4runtime
-    ${CMAKE_CURRENT_LIST_DIR}/libs/sel4_util_libs
-    ${CMAKE_CURRENT_LIST_DIR}/libs/sel4_libs
-    ${CMAKE_CURRENT_LIST_DIR}/libs/projects_libs
-)
 
-# for CMake to work properly, a project must be defined
-project(camkes C CXX ASM)
+#-------------------------------------------------------------------------------
+# this is a macro, because any changes shall affect the caller's scope
+macro(setup_sel4_build_system)
 
-# CMake interactive build debugging. Seems that set_break() does not work
-# unless ${SEL4_CMAKE_TOOL_DIR}/helpers/cmakerepl is renamed to have a
-# *.cmake suffix
-include(${SEL4_CMAKE_TOOL_DIR}/helpers/debug.cmake)
+    # internal helper variables
+    set(SEL4_CMAKE_TOOL_DIR "${SEL4_CAMKES_SDK_DIR}/tools/seL4/cmake-tool")
 
-# platform settings
-include(${SEL4_CMAKE_TOOL_DIR}/helpers/application_settings.cmake)
-correct_platform_strings()
-find_package(seL4 REQUIRED)
-sel4_configure_platform_settings()
+    list(APPEND CMAKE_MODULE_PATH
+        "${SEL4_CMAKE_TOOL_DIR}/helpers"
 
-# include lots of helpers from tools/seL4/cmake-tool/helpers
-include(${SEL4_CMAKE_TOOL_DIR}/common.cmake)
+        "${SEL4_CAMKES_SDK_DIR}/kernel"
+        "${SEL4_CAMKES_SDK_DIR}/libs/musllibc"
+        "${SEL4_CAMKES_SDK_DIR}/libs/sel4runtime"
+        "${SEL4_CAMKES_SDK_DIR}/libs/sel4_util_libs"
+        "${SEL4_CAMKES_SDK_DIR}/libs/sel4_libs"
+        "${SEL4_CAMKES_SDK_DIR}/libs/projects_libs"
+        "${SEL4_CAMKES_SDK_DIR}/tools/seL4/elfloader-tool"
+    )
 
-find_package(camkes-tool REQUIRED)
-camkes_tool_setup_camkes_build_environment()
+    # CMake interactive build debugging. Seems that set_break() does not work
+    # unless ${SEL4_CMAKE_TOOL_DIR}/helpers/cmakerepl has a
+    # *.cmake suffix
+    include("${SEL4_CMAKE_TOOL_DIR}/helpers/debug.cmake")
+
+    # platform settings
+    include("${SEL4_CMAKE_TOOL_DIR}/helpers/application_settings.cmake")
+    correct_platform_strings()
+
+    # add sel4 kernel
+    find_package(seL4 REQUIRED)
+    sel4_configure_platform_settings()
+
+    # include lots of helpers from tools/seL4/cmake-tool/helpers
+    include("${SEL4_CMAKE_TOOL_DIR}/common.cmake")
+
+endmacro()
+
+
+#-------------------------------------------------------------------------------
+# This is a macro, because any changes shall affect the caller's scope. Calling
+# setup_sel4_build_system() is required before this is called to add the CAmkES
+# features on top.
+macro(setup_sel4_camkes_build_system)
+
+    list(APPEND CMAKE_MODULE_PATH
+        "${SEL4_CAMKES_SDK_DIR}/tools/camkes"
+        "${SEL4_CAMKES_SDK_DIR}/capdl"
+    )
+
+    find_package(camkes-tool REQUIRED)
+
+    # for CMake to work properly, a project must be defined here
+    project(camkes-system C CXX ASM)
+
+    camkes_tool_setup_camkes_build_environment()
+
+endmacro()
