@@ -63,6 +63,25 @@ macro(setup_sel4_build_system)
 
 endmacro()
 
+#-------------------------------------------------------------------------------
+# Add Data61's global components (and esp. global-connectors) to the include path
+macro(setup_sel4_global_components)
+
+    find_file(GLOBAL_COMPONENTS_PATH
+        seL4-connectors.cmake
+        PATHS
+            "${SEL4_CAMKES_SDK_DIR}/libs/sel4_global_components"
+            CMAKE_FIND_ROOT_PATH_BOTH)
+
+    mark_as_advanced(FORCE GLOBAL_COMPONENTS_PATH)
+
+    if("${GLOBAL_COMPONENTS_PATH}" STREQUAL "GLOBAL_COMPONENTS_PATH-NOTFOUND")
+        message(FATAL_ERROR "Failed to find global-components.cmake. Consider cmake -DGLOBAL_COMPONENTS_PATH=/path/to/global-components.cmake")
+    endif()
+
+    include(${GLOBAL_COMPONENTS_PATH})
+
+endmacro()
 
 #-------------------------------------------------------------------------------
 # This is a macro, because any changes shall affect the caller's scope. Calling
