@@ -63,25 +63,6 @@ macro(setup_sel4_build_system)
 
 endmacro()
 
-#-------------------------------------------------------------------------------
-# Add Data61's global components (and esp. global-connectors) to the include path
-macro(setup_sel4_global_components)
-
-    find_file(GLOBAL_COMPONENTS_PATH
-        seL4-connectors.cmake
-        PATHS
-            "${SEL4_CAMKES_SDK_DIR}/libs/sel4_global_components"
-            CMAKE_FIND_ROOT_PATH_BOTH)
-
-    mark_as_advanced(FORCE GLOBAL_COMPONENTS_PATH)
-
-    if("${GLOBAL_COMPONENTS_PATH}" STREQUAL "GLOBAL_COMPONENTS_PATH-NOTFOUND")
-        message(FATAL_ERROR "Failed to find global-components.cmake. Consider cmake -DGLOBAL_COMPONENTS_PATH=/path/to/global-components.cmake")
-    endif()
-
-    include(${GLOBAL_COMPONENTS_PATH})
-
-endmacro()
 
 #-------------------------------------------------------------------------------
 # This is a macro, because any changes shall affect the caller's scope. Calling
@@ -92,13 +73,18 @@ macro(setup_sel4_camkes_build_system)
     list(APPEND CMAKE_MODULE_PATH
         "${SEL4_CAMKES_SDK_DIR}/tools/camkes"
         "${SEL4_CAMKES_SDK_DIR}/capdl"
+        "${SEL4_CAMKES_SDK_DIR}/libs/sel4_global_components"
     )
 
     find_package(camkes-tool REQUIRED)
+    find_package(global-components REQUIRED)
 
     # for CMake to work properly, a project must be defined here
     project(camkes-system C CXX ASM)
 
     camkes_tool_setup_camkes_build_environment()
+
+    # we do not enable the global-components by default, any project that needs
+    # them must call global_components_import_project() then.
 
 endmacro()
