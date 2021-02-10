@@ -36,8 +36,7 @@ macro(setup_sel4_build_system)
     )
 
     # CMake interactive build debugging. Seems that set_break() does not work
-    # unless ${SEL4_CMAKE_TOOL_DIR}/helpers/cmakerepl has a
-    # *.cmake suffix
+    # unless ${SEL4_CMAKE_TOOL_DIR}/helpers/cmakerepl has a *.cmake suffix
     include("${SEL4_CMAKE_TOOL_DIR}/helpers/debug.cmake")
 
     # platform settings
