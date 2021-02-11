@@ -6,13 +6,15 @@
 
 cmake_minimum_required(VERSION 3.7.2)
 
-#-------------------------------------------------------------------------------
-# we can't use CMAKE_CURRENT_LIST_DIR in a function/macro, because that will
-# give us the dir of the file that is invoking the function/macro. Until we
-# have CmMake 3.17 which provides CMAKE_CURRENT_FUNCTION_LIST_DIR, the work
-# around is creating a global variable here with the directory and then use
-# this in the function below.
-set(SEL4_CAMKES_SDK_DIR "${CMAKE_CURRENT_LIST_DIR}")
+# The entity that calls us is supposed to set SDK_SEL4_CAMKES_DIR. If it is
+# missing, we set it up here, because the macros below need it. Unfortunately,
+# there is still no CMAKE_CURRENT_MACRO_LIST_DIR that works like the
+# CMAKE_CURRENT_FUNCTION_LIST_DIR that CMake 3.17 added, this would be very
+# handy here to avoid depending on helper variables.
+if(NOT SDK_SEL4_CAMKES_DIR)
+    message(WARNING "SDK_SEL4_CAMKES_DIR not set, will set it now")
+    set(SDK_SEL4_CAMKES_DIR  "${CMAKE_CURRENT_LIST_DIR}")
+endif()
 
 
 #-------------------------------------------------------------------------------
@@ -20,19 +22,19 @@ set(SEL4_CAMKES_SDK_DIR "${CMAKE_CURRENT_LIST_DIR}")
 macro(setup_sel4_build_system)
 
     # internal helper variables
-    set(SEL4_CMAKE_TOOL_DIR "${SEL4_CAMKES_SDK_DIR}/tools/seL4/cmake-tool")
+    set(SEL4_CMAKE_TOOL_DIR "${SDK_SEL4_CAMKES_DIR}/tools/seL4/cmake-tool")
 
     list(APPEND CMAKE_MODULE_PATH
         "${SEL4_CMAKE_TOOL_DIR}/helpers"
 
-        "${SEL4_CAMKES_SDK_DIR}/kernel"
-        "${SEL4_CAMKES_SDK_DIR}/libs/musllibc"
-        "${SEL4_CAMKES_SDK_DIR}/libs/sel4runtime"
-        "${SEL4_CAMKES_SDK_DIR}/libs/sel4_util_libs"
-        "${SEL4_CAMKES_SDK_DIR}/libs/sel4_libs"
-        "${SEL4_CAMKES_SDK_DIR}/libs/sel4_projects_libs"
-        "${SEL4_CAMKES_SDK_DIR}/libs/projects_libs"
-        "${SEL4_CAMKES_SDK_DIR}/tools/seL4/elfloader-tool"
+        "${SDK_SEL4_CAMKES_DIR}/kernel"
+        "${SDK_SEL4_CAMKES_DIR}/libs/musllibc"
+        "${SDK_SEL4_CAMKES_DIR}/libs/sel4runtime"
+        "${SDK_SEL4_CAMKES_DIR}/libs/sel4_util_libs"
+        "${SDK_SEL4_CAMKES_DIR}/libs/sel4_libs"
+        "${SDK_SEL4_CAMKES_DIR}/libs/sel4_projects_libs"
+        "${SDK_SEL4_CAMKES_DIR}/libs/projects_libs"
+        "${SDK_SEL4_CAMKES_DIR}/tools/seL4/elfloader-tool"
     )
 
     # CMake interactive build debugging. Seems that set_break() does not work
@@ -54,7 +56,7 @@ macro(setup_sel4_build_system)
     # automatically because we use a different layout in the SDK
     set(
         NANOPB_SRC_ROOT_FOLDER
-        "${SEL4_CAMKES_SDK_DIR}/tools/nanopb"
+        "${SDK_SEL4_CAMKES_DIR}/tools/nanopb"
         CACHE
         INTERNAL
         ""
@@ -70,9 +72,9 @@ endmacro()
 macro(setup_sel4_camkes_build_system)
 
     list(APPEND CMAKE_MODULE_PATH
-        "${SEL4_CAMKES_SDK_DIR}/tools/camkes"
-        "${SEL4_CAMKES_SDK_DIR}/capdl"
-        "${SEL4_CAMKES_SDK_DIR}/libs/sel4_global_components"
+        "${SDK_SEL4_CAMKES_DIR}/tools/camkes"
+        "${SDK_SEL4_CAMKES_DIR}/capdl"
+        "${SDK_SEL4_CAMKES_DIR}/libs/sel4_global_components"
     )
 
     find_package(camkes-tool REQUIRED)
