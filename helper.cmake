@@ -36,15 +36,21 @@ sel4_configure_platform_settings()
 # Include lots of helpers from tools/seL4/cmake-tool/helpers.
 include("${SEL4_CMAKE_TOOL_DIR}/common.cmake")
 
-# The seL4 build system can't find nanopb automatically, because we use a custom
-# folder layout.
+# The seL4 default build system uses a different folder, adapt the paths.
 set(
     NANOPB_SRC_ROOT_FOLDER
     "${CMAKE_CURRENT_LIST_DIR}/tools/nanopb"
     CACHE
     INTERNAL
-    ""
+    "NanoPB location"
 )
+
+set(
+    OPENSBI_PATH
+    "${CMAKE_CURRENT_LIST_DIR}/tools/opensbi"
+    CACHE
+    STRING
+    "OpenSBI location")
 
 if (SDK_USE_CAMKES)
 
