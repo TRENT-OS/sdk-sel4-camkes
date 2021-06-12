@@ -69,6 +69,56 @@ find_package("elfloader-tool" REQUIRED)
 
 if(SDK_USE_CAMKES)
 
+    #================================================================
+    # RISC-V tweaking start
+    #================================================================
+
+    if(PLATFORM MATCHES "^(spike|spike64|spike32)$")
+    # spike does not have a timer
+    set(Sel4testHaveTimer ON CACHE BOOL "" FORCE)
+    endif()
+
+
+    if(PLATFORM MATCHES "^(migv)$")
+    # migv does not have a FPU
+    set(Sel4testHaveFPU OFF CACHE BOOL "" FORCE)
+    # migv has cache - currently sel4test cache tests only exist for ARM platform
+    # and cache doesn't work on MiG-V 1.0 Evaluation Board
+    set(Sel4testHaveCache OFF CACHE BOOL "" FORCE)
+    endif()
+
+    # select specific test in sel4test native
+    # set(LibSel4TestPrinterRegex "PREEMPT_REVOKE" CACHE STRING "A POSIX regex pattern used to filter tests")
+    # set(LibSel4TestPrinterRegex "SCHED0021" CACHE STRING "A POSIX regex pattern used to filter tests")
+
+    #set(KernelPrinting OFF CACHE BOOL "" FORCE)
+    set(KernelPrinting ON CACHE BOOL "" FORCE)
+
+    #set(KernelDebugBuild OFF CACHE BOOL "" FORCE)
+    set(KernelDebugBuild ON CACHE BOOL "" FORCE)
+
+    #set(ElfloaderHashInstructions "hash_sha" CACHE STRING "" FORCE)
+    set(ElfloaderHashInstructions "hash_none" CACHE STRING "" FORCE)
+
+
+    if(PLATFORM MATCHES "^(spike|spike32|hifive|polarfire)$")
+
+        message("############### config hack: QEMU/${PLATFORM}")
+        set(KernelRiscVSBI "OpenSBI" CACHE BOOL "" FORCE) # use SBI provided by platform
+
+    elseif(PLATFORM STREQUAL "migv")
+
+        message("############### config hack: MiG-V")
+        set(KernelRiscVSBI "ROM" CACHE BOOL "" FORCE) # use SBI provided by platform
+        #set(IMAGE_START_ADDR 0x01000000) # run kernel from internal SRAM
+        set(IMAGE_START_ADDR 0x41000000) # run kernel from external SDRAM at +2MiByte
+
+    endif()
+
+    #================================================================
+    # RISC-V tweaking end
+    #================================================================
+
     list(APPEND CMAKE_MODULE_PATH
         "${CMAKE_CURRENT_LIST_DIR}/tools/camkes"
         "${CMAKE_CURRENT_LIST_DIR}/capdl"
