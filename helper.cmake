@@ -21,21 +21,6 @@ list(APPEND CMAKE_MODULE_PATH
     "${CMAKE_CURRENT_LIST_DIR}/tools/seL4/elfloader-tool"
 )
 
-# CMake interactive build debugging. Seems that set_break() does not work unless
-# ${SEL4_CMAKE_TOOL_DIR}/helpers/cmakerepl has a *.cmake suffix
-include("${SEL4_CMAKE_TOOL_DIR}/helpers/debug.cmake")
-
-# platform settings
-include("${SEL4_CMAKE_TOOL_DIR}/helpers/application_settings.cmake")
-correct_platform_strings()
-
-# Add the seL4 kernel.
-find_package(seL4 REQUIRED)
-sel4_configure_platform_settings()
-
-# Include lots of helpers from tools/seL4/cmake-tool/helpers.
-include("${SEL4_CMAKE_TOOL_DIR}/common.cmake")
-
 # The seL4 default build system uses a different folder, adapt the paths.
 set(
     NANOPB_SRC_ROOT_FOLDER
@@ -51,6 +36,21 @@ set(
     CACHE
     STRING
     "OpenSBI location")
+
+# CMake interactive build debugging. Seems that set_break() does not work unless
+# ${SEL4_CMAKE_TOOL_DIR}/helpers/cmakerepl has a *.cmake suffix
+include("${SEL4_CMAKE_TOOL_DIR}/helpers/debug.cmake")
+
+# platform settings
+include("${SEL4_CMAKE_TOOL_DIR}/helpers/application_settings.cmake")
+correct_platform_strings()
+
+# Add the seL4 kernel.
+find_package(seL4 REQUIRED)
+sel4_configure_platform_settings()
+
+# Include lots of helpers from tools/seL4/cmake-tool/helpers.
+include("${SEL4_CMAKE_TOOL_DIR}/common.cmake")
 
 if (SDK_USE_CAMKES)
 
