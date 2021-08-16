@@ -7,15 +7,18 @@
 [submodule "libs/musllibc"]
 	path = libs/musllibc
 	url = ../../ext/musllibc.git
+[submodule "libs/projects_libs"]
+	path = libs/projects_libs
+	url = ../../ext/sel4proj-projects_libs.git
+[submodule "libs/sel4_global_components"]
+	path = libs/sel4_global_components
+	url = ../../ext/sel4proj-global-components.git
 [submodule "libs/sel4_libs"]
 	path = libs/sel4_libs
 	url = ../../ext/sel4_libs.git
 [submodule "libs/sel4_projects_libs"]
 	path = libs/sel4_projects_libs
 	url = ../../ext/sel4_projects_libs.git
-[submodule "libs/projects_libs"]
-	path = libs/projects_libs
-	url = ../../ext/sel4proj-projects_libs.git
 [submodule "libs/sel4_util_libs"]
 	path = libs/sel4_util_libs
 	url = ../../ext/util_libs.git
@@ -25,15 +28,12 @@
 [submodule "tools/camkes"]
 	path = tools/camkes
 	url = ../../ext/camkes-tool.git
-[submodule "tools/seL4"]
-	path = tools/seL4
-	url = ../../ext/sel4_tools.git
 [submodule "tools/nanopb"]
 	path = tools/nanopb
 	url = ../../ext/nanopb.git
-[submodule "libs/sel4_global_components"]
-	path = libs/sel4_global_components
-	url = ../../ext/sel4proj-global-components.git
 [submodule "tools/opensbi"]
 	path = tools/opensbi
 	url = ../../ext/github-riscv-opensbi.git
+[submodule "tools/seL4"]
+	path = tools/seL4
+	url = ../../ext/sel4_tools.git
