@@ -14,19 +14,19 @@ previous release or the baseline of the 3rd party module.
 
 | Name                        | Source                                       | Commit (Tag)         |
 |-----------------------------|----------------------------------------------|----------------------|
-| capdl                       | <https://github.com/seL4/capdl>              | 141bbe013cf          |
-| kernel                      | <https://github.com/seL4/seL4>               | d1643774cde          |
+| capdl                       | <https://github.com/seL4/capdl>              | 1995a5292aea         |
+| kernel                      | <https://github.com/seL4/seL4>               | b384dc02af78         |
 | libs/muslibc                | <https://github.com/seL4/musllibc>           | c7aa943a2ad4         |
-| libs/projects_libs          | <https://github.com/seL4/projects_libs>      | 3b5c4cdf9e17         |
-| libs/sel4_global_components | <https://github.com/seL4/global-components>  | 02133497ed12         |
-| libs/sel4_libs              | <https://github.com/seL4/seL4_libs>          | cf104b85d7db         |
+| libs/projects_libs          | <https://github.com/seL4/projects_libs>      | baf58d797b2e         |
+| libs/sel4_global_components | <https://github.com/seL4/global-components>  | 3cde1557ee59         |
+| libs/sel4_libs              | <https://github.com/seL4/seL4_libs>          | 3678de2c63c2         |
 | libs/sel4_projects_libs     | <https://github.com/seL4/sel4_projects_libs> | 2e30fdeb1d32         |
-| libs/sel4_util_libs         | <https://github.com/seL4/util_libs>          | c446df1f1a3e         |
-| libs/sel4runtime            | <https://github.com/seL4/sel4runtime>        | e1c51c9b5067         |
-| tools/camkes                | <https://github.com/seL4/camkes-tool>        | 74decfb8a133         |
+| libs/sel4_util_libs         | <https://github.com/seL4/util_libs>          | f3eaec424950         |
+| libs/sel4runtime            | <https://github.com/seL4/sel4runtime>        | 93f86fa39084         |
+| tools/camkes                | <https://github.com/seL4/camkes-tool>        | 3a5901387395         |
 | tools/nanopb                | <https://github.com/nanopb/nanopb>           | 847ac296b509         |
 | tools/opensbi               | <https://github.com/riscv/opensbi>           | 234ed8e427f4 (v.0.9) |
-| tools/sel4                  | <https://github.com/seL4/seL4_tools>         | 3927f8f5fd34         |
+| tools/sel4                  | <https://github.com/seL4/seL4_tools>         | 6211394b3f83         |
 
 ## [1.2]
 
