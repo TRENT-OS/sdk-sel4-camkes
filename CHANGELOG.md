@@ -21,7 +21,7 @@ previous release or the baseline of the 3rd party module.
 | libs/sel4_global_components | <https://github.com/seL4/global-components>  | 3cde1557ee59         |
 | libs/sel4_libs              | <https://github.com/seL4/seL4_libs>          | 3678de2c63c2         |
 | libs/sel4_projects_libs     | <https://github.com/seL4/sel4_projects_libs> | 2e30fdeb1d32         |
-| libs/sel4_util_libs         | <https://github.com/seL4/util_libs>          | f3eaec424950         |
+| libs/sel4_util_libs         | <https://github.com/seL4/util_libs>          | c3c3733f0a31         |
 | libs/sel4runtime            | <https://github.com/seL4/sel4runtime>        | 93f86fa39084         |
 | tools/camkes                | <https://github.com/seL4/camkes-tool>        | 3a5901387395         |
 | tools/nanopb                | <https://github.com/nanopb/nanopb>           | 847ac296b509         |
