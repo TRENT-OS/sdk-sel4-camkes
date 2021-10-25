@@ -52,6 +52,13 @@ sel4_configure_platform_settings()
 # Include lots of helpers from tools/seL4/cmake-tool/helpers.
 include("${SEL4_CMAKE_TOOL_DIR}/common.cmake")
 
+if(PLATFORM STREQUAL "zynq7000")
+
+    message("############### config hack: Zynq-7000")
+    set(IMAGE_START_ADDR 0x04000000) # run kernel from offset 64 MiB
+
+endif()
+
 if (SDK_USE_CAMKES)
 
     set(
