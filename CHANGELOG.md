@@ -6,6 +6,16 @@ meta-module included in TRENTOS SDK will be documented in this file.
 For more details it is recommended to compare the 3rd party module at hand with
 the previous versions of the TRENTOS SDK or the baseline version.
 
+## [1.4]
+
+### Added
+
+- Updated 3rd party modules:
+
+| Name           | Source                              | Commit (Tag) |
+|----------------|-------------------------------------|--------------|
+| libs/sel4_libs | <https://github.com/seL4/seL4_libs> | d8ae2c44e92d |
+
 ## [1.3]
 
 ### Added
