@@ -37,3 +37,6 @@
 [submodule "tools/seL4"]
 	path = tools/seL4
 	url = ../../ext/sel4_tools.git
+[submodule "libs/camkes-vm"]
+	path = libs/camkes-vm
+	url = ../../ext/camkes-vm.git
