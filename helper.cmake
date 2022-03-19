@@ -72,6 +72,7 @@ if(SDK_USE_CAMKES)
     list(APPEND CMAKE_MODULE_PATH
         "${CMAKE_CURRENT_LIST_DIR}/tools/camkes"
         "${CMAKE_CURRENT_LIST_DIR}/capdl"
+        "${CMAKE_CURRENT_LIST_DIR}/libs/camkes-vm"
         "${CMAKE_CURRENT_LIST_DIR}/libs/sel4_global_components"
     )
 
@@ -87,6 +88,26 @@ if(SDK_USE_CAMKES)
     # either cherry-pick things or call global_components_import_project().
     include("${GLOBAL_COMPONENTS_DIR}/global-connectors.cmake")
 
+    find_package(camkes-vm REQUIRED)
+    if(KernelArchARM)
+        find_package(camkes-arm-vm REQUIRED)
+        function(os_sdk_import_camkes_vm)
+            camkes_arm_vm_import_project()
+            CAmkESAddImportPath("${CAMKES_ARM_VM_DIR}/components/VM_Arm")
+            CAmkESAddCPPInclude("${CAMKES_ARM_VM_DIR}/components/VM_Arm")
+        endfunction()
+    elseif(KernelArchRiscV)
+        function(os_sdk_import_camkes_vm)
+            message(FATAL_ERROR "ToDo: support CAmkES VM for RISC-V")
+        endfunction()
+    elseif(KernelArchX86)
+        function(os_sdk_import_camkes_vm)
+            message(FATAL_ERROR "ToDo: support CAmkES VM for x86")
+        endfunction()
+    else()
+        message(FATAL_ERROR "Unsupported KernelArch '${KernelArch}'")
+    endif()
+
 else()
 
     # Just configure the general platform setting. Don't import anything,
@@ -94,7 +115,6 @@ else()
     sel4_configure_platform_settings()
 
 endif()
-
 
 # Include lots of helpers from tools/seL4/cmake-tool/helpers.
 include("${SEL4_CMAKE_TOOL_DIR}/common.cmake")
