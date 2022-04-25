@@ -45,38 +45,60 @@ include("${SEL4_CMAKE_TOOL_DIR}/helpers/debug.cmake")
 include("${SEL4_CMAKE_TOOL_DIR}/helpers/application_settings.cmake")
 correct_platform_strings()
 
-# Add the seL4 kernel.
-find_package(seL4 REQUIRED)
-sel4_configure_platform_settings()
-
-# Include lots of helpers from tools/seL4/cmake-tool/helpers.
-include("${SEL4_CMAKE_TOOL_DIR}/common.cmake")
-
 if (SDK_USE_CAMKES)
-
-    set(
-        SDK_SEL4_CAMKES_GLOBAL_COMPS_DIR
-        "${CMAKE_CURRENT_LIST_DIR}/libs/sel4_global_components"
-    )
 
     list(APPEND CMAKE_MODULE_PATH
         "${CMAKE_CURRENT_LIST_DIR}/tools/camkes"
         "${CMAKE_CURRENT_LIST_DIR}/capdl"
-        "${SDK_SEL4_CAMKES_GLOBAL_COMPS_DIR}"
+        "${CMAKE_CURRENT_LIST_DIR}/libs/sel4_global_components"
     )
 
     find_package(camkes-tool REQUIRED)
-    find_package(global-components REQUIRED)
-
-    # For CMake to work properly, a project must be defined here.
-    project(camkes-system C CXX ASM)
-
+    enable_language(C CXX ASM)
     camkes_tool_setup_camkes_build_environment()
 
-    include("${SDK_SEL4_CAMKES_GLOBAL_COMPS_DIR}/global-connectors.cmake")
+    find_package(sel4_projects_libs REQUIRED)
+    sel4_projects_libs_import_libraries()
 
-    # We do not enable anything from the global components by default. Any
-    # project that needs them must either cherry-pick things or call
-    # global_components_import_project().
+    # Provide just the connectors from the global component, but no components,
+    # because this may cause name conflicts. Any project that needs them must
+    # either cherry-pick things or call global_components_import_project().
+    find_package(global-components REQUIRED)
+    include("${GLOBAL_COMPONENTS_DIR}/global-connectors.cmake")
+    # define a custom variable to legacy compatibility
+    set(SDK_SEL4_CAMKES_GLOBAL_COMPS_DIR "${GLOBAL_COMPONENTS_DIR}")
+
+else()
+
+    # Add just the seL4 kernel and basic platform settings
+    find_package(seL4 REQUIRED)
+    sel4_configure_platform_settings()
+
+    # Leave the rest to the project, e.g.
+    #
+    #   sel4_import_kernel()
+    #   sel4_import_libsel4()
+    #
+    #   find_package(elfloader-tool REQUIRED)
+    #   elfloader_import_project()
+    #
+    #   find_package(musllibc REQUIRED)
+    #   musllibc_setup_build_environment_with_sel4runtime()
+    #
+    #   find_package(util_libs REQUIRED)
+    #   util_libs_import_libraries()
+    #
+    #   find_package(seL4_libs REQUIRED)
+    #   sel4_libs_import_libraries()
+    #
+    #   find_package(projects_libs REQUIRED)
+    #   projects_libs_import_libraries()
+    #
+    #   find_package(sel4_projects_libs REQUIRED)
+    #   sel4_projects_libs_import_libraries()
 
 endif()
+
+
+# Include lots of helpers from tools/seL4/cmake-tool/helpers.
+include("${SEL4_CMAKE_TOOL_DIR}/common.cmake")
