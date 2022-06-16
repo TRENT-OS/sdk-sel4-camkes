@@ -37,6 +37,19 @@ set(
     STRING
     "OpenSBI location")
 
+macro(os_sdk_import_sel4)
+    enable_language(C CXX ASM)
+    sel4_import_kernel()
+    elfloader_import_project()
+    # this must be called before importing libsel4()
+    musllibc_setup_build_environment_with_sel4runtime()
+    sel4_import_libsel4()
+    util_libs_import_libraries()
+    sel4_libs_import_libraries()
+    projects_libs_import_libraries()
+    sel4_projects_libs_import_libraries()
+endmacro()
+
 # CMake interactive build debugging. Seems that set_break() does not work unless
 # ${SEL4_CMAKE_TOOL_DIR}/helpers/cmakerepl has a *.cmake suffix
 include("${SEL4_CMAKE_TOOL_DIR}/helpers/debug.cmake")
@@ -44,6 +57,15 @@ include("${SEL4_CMAKE_TOOL_DIR}/helpers/debug.cmake")
 # platform settings
 include("${SEL4_CMAKE_TOOL_DIR}/helpers/application_settings.cmake")
 correct_platform_strings()
+
+find_package("seL4" REQUIRED)
+find_package("sel4runtime" REQUIRED)
+find_package("musllibc" REQUIRED)
+find_package("util_libs" REQUIRED)
+find_package("seL4_libs" REQUIRED)
+find_package("projects_libs" REQUIRED)
+find_package("sel4_projects_libs" REQUIRED)
+find_package("elfloader-tool" REQUIRED)
 
 if (SDK_USE_CAMKES)
 
@@ -54,48 +76,24 @@ if (SDK_USE_CAMKES)
     )
 
     find_package("camkes-tool" REQUIRED)
+    find_package("global-components" REQUIRED)
+
     enable_language(C CXX ASM)
     camkes_tool_setup_camkes_build_environment()
-
-    find_package("sel4_projects_libs" REQUIRED)
     sel4_projects_libs_import_libraries()
 
     # Provide just the connectors from the global component, but no components,
     # because this may cause name conflicts. Any project that needs them must
     # either cherry-pick things or call global_components_import_project().
-    find_package("global-components" REQUIRED)
     include("${GLOBAL_COMPONENTS_DIR}/global-connectors.cmake")
     # define a custom variable to legacy compatibility
     set(SDK_SEL4_CAMKES_GLOBAL_COMPS_DIR "${GLOBAL_COMPONENTS_DIR}")
 
 else()
 
-    # Add just the seL4 kernel and basic platform settings
-    find_package("seL4" REQUIRED)
+    # Just configure the general platform setting. Don't import anything,
+    # projects can use os_sdk_import_sel4() or cherry-pick things.
     sel4_configure_platform_settings()
-
-    # Leave the rest to the project, e.g.
-    #
-    #   sel4_import_kernel()
-    #   sel4_import_libsel4()
-    #
-    #   find_package("elfloader-tool" REQUIRED)
-    #   elfloader_import_project()
-    #
-    #   find_package("musllibc" REQUIRED)
-    #   musllibc_setup_build_environment_with_sel4runtime()
-    #
-    #   find_package("util_libs" REQUIRED)
-    #   util_libs_import_libraries()
-    #
-    #   find_package("seL4_libs" REQUIRED)
-    #   sel4_libs_import_libraries()
-    #
-    #   find_package("projects_libs" REQUIRED)
-    #   projects_libs_import_libraries()
-    #
-    #   find_package("sel4_projects_libs" REQUIRED)
-    #   sel4_projects_libs_import_libraries()
 
 endif()
 
