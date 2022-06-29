@@ -67,7 +67,7 @@ find_package("projects_libs" REQUIRED)
 find_package("sel4_projects_libs" REQUIRED)
 find_package("elfloader-tool" REQUIRED)
 
-if (SDK_USE_CAMKES)
+if(SDK_USE_CAMKES)
 
     list(APPEND CMAKE_MODULE_PATH
         "${CMAKE_CURRENT_LIST_DIR}/tools/camkes"
