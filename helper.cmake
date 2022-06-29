@@ -86,8 +86,6 @@ if(SDK_USE_CAMKES)
     # because this may cause name conflicts. Any project that needs them must
     # either cherry-pick things or call global_components_import_project().
     include("${GLOBAL_COMPONENTS_DIR}/global-connectors.cmake")
-    # define a custom variable to legacy compatibility
-    set(SDK_SEL4_CAMKES_GLOBAL_COMPS_DIR "${GLOBAL_COMPONENTS_DIR}")
 
 else()
 
