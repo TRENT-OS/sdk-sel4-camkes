@@ -95,6 +95,5 @@ else()
 
 endif()
 
-
 # Include lots of helpers from tools/seL4/cmake-tool/helpers.
 include("${SEL4_CMAKE_TOOL_DIR}/common.cmake")
