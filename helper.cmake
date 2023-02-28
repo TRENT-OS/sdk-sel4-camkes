@@ -67,6 +67,11 @@ find_package("projects_libs" REQUIRED)
 find_package("sel4_projects_libs" REQUIRED)
 find_package("elfloader-tool" REQUIRED)
 
+if(PLATFORM STREQUAL "jetson-xavier-nx-dev-kit" OR PLATFORM STREQUAL "aetina-an110-xnx")
+    # set(IMAGE_START_ADDR 0x96000000)
+    set(ElfloaderImage "binary" CACHE STRING "" FORCE)
+endif()
+
 if(SDK_USE_CAMKES)
 
     list(APPEND CMAKE_MODULE_PATH
