@@ -1,42 +1,42 @@
 [submodule "capdl"]
 	path = capdl
-	url = ../../ext/capdl.git
+	url = ../capdl.git
 [submodule "kernel"]
 	path = kernel
-	url = ../../ext/sel4.git
+	url = ../sel4.git
 [submodule "libs/musllibc"]
 	path = libs/musllibc
-	url = ../../ext/musllibc.git
+	url = ../musllibc.git
 [submodule "libs/projects_libs"]
 	path = libs/projects_libs
-	url = ../../ext/sel4proj-projects_libs.git
+	url = ../sel4proj-projects_libs.git
 [submodule "libs/sel4_global_components"]
 	path = libs/sel4_global_components
-	url = ../../ext/sel4proj-global-components.git
+	url = ../sel4proj-global-components.git
 [submodule "libs/sel4_libs"]
 	path = libs/sel4_libs
-	url = ../../ext/sel4_libs.git
+	url = ../sel4_libs.git
 [submodule "libs/sel4_projects_libs"]
 	path = libs/sel4_projects_libs
-	url = ../../ext/sel4_projects_libs.git
+	url = ../sel4_projects_libs.git
 [submodule "libs/sel4_util_libs"]
 	path = libs/sel4_util_libs
-	url = ../../ext/util_libs.git
+	url = ../util_libs.git
 [submodule "libs/sel4runtime"]
 	path = libs/sel4runtime
-	url = ../../ext/sel4runtime
+	url = ../sel4runtime
 [submodule "tools/camkes"]
 	path = tools/camkes
-	url = ../../ext/camkes-tool.git
+	url = ../camkes-tool.git
 [submodule "tools/nanopb"]
 	path = tools/nanopb
-	url = ../../ext/nanopb.git
+	url = ../nanopb.git
 [submodule "tools/opensbi"]
 	path = tools/opensbi
-	url = ../../ext/github-riscv-opensbi.git
+	url = ../github-riscv-opensbi.git
 [submodule "tools/seL4"]
 	path = tools/seL4
-	url = ../../ext/sel4_tools.git
+	url = ../sel4_tools.git
 [submodule "libs/camkes-vm"]
 	path = libs/camkes-vm
-	url = ../../ext/camkes-vm.git
+	url = ../camkes-vm.git
